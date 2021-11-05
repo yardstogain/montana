@@ -10,19 +10,11 @@ import {
 import { supabase } from "../../initSupabase";
 import { AuthStackParamList } from "../../types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import {
-  Layout,
-  Text,
-  TextInput,
-  Button,
-  useTheme,
-  themeColor,
-} from "react-native-rapi-ui";
+import { Layout, Text, TextLink, TextInput, Button } from "../../components";
 
 export default function ({
   navigation,
 }: StackScreenProps<AuthStackParamList, "Register">) {
-  const { isDarkmode, setTheme } = useTheme();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -42,6 +34,7 @@ export default function ({
       alert(error.message);
     }
   }
+
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <Layout>
@@ -55,7 +48,6 @@ export default function ({
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
             }}
           >
             <Image
@@ -70,24 +62,15 @@ export default function ({
           <View
             style={{
               flex: 3,
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.white,
+              paddingHorizontal: 16,
+              paddingBottom: 24,
             }}
           >
-            <Text
-              fontWeight="bold"
-              size="h3"
-              style={{
-                alignSelf: "center",
-                padding: 30,
-              }}
-            >
+            <Text h3 style={{ textAlign: "center", marginBottom: 16 }}>
               Register
             </Text>
-            <Text>Email</Text>
             <TextInput
-              containerStyle={{ marginTop: 15 }}
+              label="Email"
               placeholder="Enter your email"
               value={email}
               autoCapitalize="none"
@@ -95,11 +78,10 @@ export default function ({
               autoCorrect={false}
               keyboardType="email-address"
               onChangeText={(text) => setEmail(text)}
+              leftIcon={{ type: "ionicons", name: "email" }}
             />
-
-            <Text style={{ marginTop: 15 }}>Password</Text>
             <TextInput
-              containerStyle={{ marginTop: 15 }}
+              label="Password"
               placeholder="Enter your password"
               value={password}
               autoCapitalize="none"
@@ -107,65 +89,32 @@ export default function ({
               autoCorrect={false}
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
+              leftIcon={{ type: "ionicons", name: "lock" }}
             />
             <Button
-              text={loading ? "Loading" : "Create an account"}
+              title={loading ? "Loading" : "Create an account"}
               onPress={() => {
                 register();
               }}
-              style={{
-                marginTop: 20,
-              }}
-              disabled={loading}
+              loading={loading}
             />
 
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                marginTop: 15,
+                marginTop: 24,
                 justifyContent: "center",
               }}
             >
-              <Text size="md">Already have an account?</Text>
+              <Text>Already have an account?</Text>
               <TouchableOpacity
+                style={{ marginLeft: 8 }}
                 onPress={() => {
                   navigation.navigate("Login");
                 }}
               >
-                <Text
-                  size="md"
-                  fontWeight="bold"
-                  style={{
-                    marginLeft: 5,
-                  }}
-                >
-                  Login here
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 30,
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  isDarkmode ? setTheme("light") : setTheme("dark");
-                }}
-              >
-                <Text
-                  size="md"
-                  fontWeight="bold"
-                  style={{
-                    marginLeft: 5,
-                  }}
-                >
-                  {isDarkmode ? "☀️ light theme" : "🌑 dark theme"}
-                </Text>
+                <TextLink>Login here</TextLink>
               </TouchableOpacity>
             </View>
           </View>

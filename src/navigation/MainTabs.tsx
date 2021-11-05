@@ -6,8 +6,8 @@ import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
 
 import Home from "../screens/Home";
-import About from "../screens/About";
-import Profile from "../screens/Profile";
+import Ladder from "../screens/Ladder";
+import Picks from "../screens/Picks";
 
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
@@ -31,31 +31,31 @@ const MainTabs = () => {
             <TabBarText focused={focused} title="Home" />
           ),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"md-home"} />
+            <TabBarIcon focused={focused} icon="md-home" />
           ),
         }}
       />
       <Tabs.Screen
-        name="Profile"
-        component={Profile}
+        name="Picks"
+        component={Picks}
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Profile" />
+            <TabBarText focused={focused} title="Picks" />
           ),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"person"} />
+            <TabBarIcon focused={focused} icon="american-football" />
           ),
         }}
       />
       <Tabs.Screen
-        name="About"
-        component={About}
+        name="Ladder"
+        component={Ladder}
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="About" />
+            <TabBarText focused={focused} title="Ladder" />
           ),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"ios-information-circle"} />
+            <TabBarIcon focused={focused} icon="md-list" />
           ),
         }}
       />

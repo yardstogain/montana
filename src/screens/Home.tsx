@@ -21,23 +21,7 @@ export default function ({
   const { isDarkmode, setTheme } = useTheme();
   return (
     <Layout>
-      <TopNav
-        middleContent="Home"
-        rightContent={
-          <Ionicons
-            name={isDarkmode ? "sunny" : "moon"}
-            size={20}
-            color={isDarkmode ? themeColor.white100 : themeColor.dark}
-          />
-        }
-        rightAction={() => {
-          if (isDarkmode) {
-            setTheme("light");
-          } else {
-            setTheme("dark");
-          }
-        }}
-      />
+      <TopNav middleContent="YTG" />
       <View
         style={{
           flex: 1,
