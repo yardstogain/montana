@@ -1,41 +1,9 @@
 import React from "react";
 import { Image } from "react-native";
+import { Team } from "../../../types";
+
 const imageBucket =
   "https://meshmujhotcuowdzbiup.supabase.in/storage/v1/object/public/images";
-
-type Team =
-  | "ari"
-  | "atl"
-  | "bal"
-  | "buf"
-  | "car"
-  | "chi"
-  | "cin"
-  | "cle"
-  | "dal"
-  | "den"
-  | "det"
-  | "gb"
-  | "hou"
-  | "ind"
-  | "jax"
-  | "kc"
-  | "lac"
-  | "lar"
-  | "lv"
-  | "mia"
-  | "min"
-  | "ne"
-  | "no"
-  | "nyg"
-  | "nyj"
-  | "phi"
-  | "pit"
-  | "sea"
-  | "sf"
-  | "tb"
-  | "ten"
-  | "was";
 
 type LogoProps = {
   team: Team;
