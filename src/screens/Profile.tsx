@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function ({
   navigation,
-}: StackScreenProps<MainTabsParamList, "Home">) {
+}: StackScreenProps<MainTabsParamList, "Profile">) {
   return (
     <Layout>
       <View
@@ -18,13 +18,9 @@ export default function ({
           justifyContent: "center",
         }}
       >
-        <Text>This is the Home tab</Text>
-        <Button
-          title="open modal"
-          onPress={() => {
-            navigation.navigate("FraudListInfoModal");
-          }}
-        />
+        <Text>change Avatar</Text>
+        <Text>view ladder ranks</Text>
+        <Text>link to games</Text>
       </View>
     </Layout>
   );

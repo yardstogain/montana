@@ -138,3 +138,31 @@ export const amberDark = {
   amber11: "#f1a10d",
   amber12: "#fef3dd",
 };
+export const blue = {
+  blue1: "#fbfdff",
+  blue2: "#f5faff",
+  blue3: "#edf6ff",
+  blue4: "#e1f0ff",
+  blue5: "#cee7fe",
+  blue6: "#b7d9f8",
+  blue7: "#96c7f2",
+  blue8: "#5eb0ef",
+  blue9: "#0091ff",
+  blue10: "#0081f1",
+  blue11: "#006adc",
+  blue12: "#00254d",
+};
+export const blueDark = {
+  blue1: "#0f1720",
+  blue2: "#0f1b2d",
+  blue3: "#10243e",
+  blue4: "#102a4c",
+  blue5: "#0f3058",
+  blue6: "#0d3868",
+  blue7: "#0a4481",
+  blue8: "#0954a5",
+  blue9: "#0091ff",
+  blue10: "#369eff",
+  blue11: "#52a9ff",
+  blue12: "#eaf6ff",
+};

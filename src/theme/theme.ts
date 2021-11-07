@@ -9,9 +9,10 @@ import {
   amber,
   amberDark,
   redDark,
+  blue,
+  blueDark,
 } from "./colors";
 import { FullTheme } from "react-native-elements";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 // www.radix-ui.com/docs/colors/palette-composition/understanding-the-scale
 // 1 App background
 // 2 Subtle background
@@ -26,22 +27,30 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 // 11 Low-contrast text
 // 12 High-contrast text
 
-export const Theme: FullTheme = {};
+export const Theme: Partial<FullTheme> = {};
 
-export const DarkTheme: FullTheme = {
+export const DarkTheme: Partial<FullTheme> = {
   colors: {
     primary: tealDark.teal9,
     white: sageDark.sage12,
     greyOutline: sageDark.sage6,
+    info: blueDark.blue11,
     success: tealDark.teal9,
-    error: redDark.red6,
-    warning: amberDark.amber6,
+    error: redDark.red9,
+    warning: amberDark.amber9,
+    card: sageDark.sage4,
+    selectedCard: blueDark.blue5,
+    gold: amberDark.amber9,
+    silver: sageDark.sage10,
+    bronze: amberDark.amber6,
     grey0: sageDark.sage1,
     grey1: sageDark.sage1,
     grey2: sageDark.sage2,
     grey3: sageDark.sage3,
     grey4: sageDark.sage4,
-    grey5: sageDark.sage5,
+    grey5: sageDark.sage10,
+    text: sageDark.sage12,
+    mutedText: sageDark.sage11,
   },
   Button: {
     titleStyle: {
@@ -58,6 +67,8 @@ export const DarkTheme: FullTheme = {
   Card: {
     containerStyle: {
       backgroundColor: sageDark.sage2,
+      borderWidth: 0,
+      borderRadius: 8,
     },
   },
   Input: {
@@ -88,14 +99,24 @@ export const DarkTheme: FullTheme = {
     },
   },
   Text: {
-    style: {
-      color: sageDark.sage12,
-      fontFamily: "Lato Regular",
-      fontSize: 16,
+    h1Style: {
+      fontFamily: "Lato Black",
+      fontSize: 36,
+    },
+    h2Style: {
+      fontFamily: "Lato Black",
+      fontSize: 32,
     },
     h3Style: {
       fontFamily: "Lato Black",
+      fontSize: 28,
+    },
+    h4Style: {
+      fontFamily: "Lato Black",
       fontSize: 24,
     },
+  },
+  FAB: {
+    color: blueDark.blue9,
   },
 };

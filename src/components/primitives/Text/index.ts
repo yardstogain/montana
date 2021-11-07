@@ -1,1 +1,1 @@
-export { Text, TextLink } from "./Text";
+export { MutedText, Text, TextLink } from "./Text";

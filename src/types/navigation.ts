@@ -1,6 +1,6 @@
 export type MainStackParamList = {
   MainTabs: undefined;
-  SecondScreen: undefined;
+  FraudListInfoModal: undefined;
 };
 
 export type AuthStackParamList = {
@@ -11,5 +11,6 @@ export type AuthStackParamList = {
 export type MainTabsParamList = {
   Home: undefined;
   Profile: undefined;
-  About: undefined;
+  Picks: undefined;
+  Ladder: undefined;
 };

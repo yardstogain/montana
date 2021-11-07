@@ -1,37 +1,65 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import { themeColor, useTheme } from "react-native-rapi-ui";
-import TabBarIcon from "../components/utils/TabBarIcon";
-import TabBarText from "../components/utils/TabBarText";
+import { useTheme } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
 
 import Home from "../screens/Home";
 import Ladder from "../screens/Ladder";
 import Picks from "../screens/Picks";
+import Profile from "../screens/Profile";
+import { View } from "react-native";
 
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
-  const { isDarkmode } = useTheme();
+  const { theme } = useTheme();
   return (
     <Tabs.Navigator
-      tabBarOptions={{
-        style: {
-          borderTopWidth: 1,
-          borderTopColor: isDarkmode ? themeColor.dark100 : "#c0c0c0",
-          backgroundColor: isDarkmode ? themeColor.dark200 : "#fff",
-        },
+      screenOptions={{
+        tabBarActiveTintColor: theme.colors?.primary,
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarBackground: () => (
+          <View
+            style={{
+              backgroundColor: theme.colors?.grey0,
+              position: "absolute",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              borderTopColor: "red",
+            }}
+          />
+        ),
       }}
     >
-      {/* these icons using Ionicons */}
+      <Tabs.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarAccessibilityLabel: "Profile Tab",
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              size={24}
+              color={focused ? theme.colors?.primary : theme.colors?.grey5}
+              name="person"
+            />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Home" />
-          ),
+          tabBarLabel: "Home",
+          tabBarAccessibilityLabel: "Home Tab",
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon="md-home" />
+            <Ionicons
+              size={24}
+              color={focused ? theme.colors?.primary : theme.colors?.grey5}
+              name="newspaper"
+            />
           ),
         }}
       />
@@ -39,11 +67,14 @@ const MainTabs = () => {
         name="Picks"
         component={Picks}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Picks" />
-          ),
+          tabBarLabel: "Picks",
+          tabBarAccessibilityLabel: "Picks Tab",
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon="american-football" />
+            <Ionicons
+              size={24}
+              color={focused ? theme.colors?.primary : theme.colors?.grey5}
+              name="american-football"
+            />
           ),
         }}
       />
@@ -51,11 +82,14 @@ const MainTabs = () => {
         name="Ladder"
         component={Ladder}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Ladder" />
-          ),
+          tabBarLabel: "Ladder",
+          tabBarAccessibilityLabel: "Ladder Tab",
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon="md-list" />
+            <Ionicons
+              size={24}
+              color={focused ? theme.colors?.primary : theme.colors?.grey5}
+              name="md-list"
+            />
           ),
         }}
       />
