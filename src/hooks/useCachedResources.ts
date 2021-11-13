@@ -7,10 +7,14 @@ import {
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
+import { useDispatch } from "react-redux";
+import { useGetCurrentWeekQuery } from "../state/services/teams";
+import { setCurrentWeek } from "../state/ui";
 
 function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-
+  const dispatch = useDispatch();
+  const { data, isLoading } = useGetCurrentWeekQuery();
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -36,7 +40,13 @@ function useCachedResources() {
     loadResourcesAndDataAsync();
   }, []);
 
-  return isLoadingComplete;
+  React.useEffect(() => {
+    if (data) {
+      dispatch(setCurrentWeek(data));
+    }
+  }, [data, isLoading]);
+
+  return isLoadingComplete && isLoading;
 }
 
 export { useCachedResources };

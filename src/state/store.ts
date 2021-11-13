@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import fraudPicks from "./fraudPicks";
-import { teamsApi } from "./teams";
+import ui from "./ui";
+import { teamsApi } from "./services/teams";
 
 export const store = configureStore({
   reducer: {
     fraudPicks,
+    ui,
     [teamsApi.reducerPath]: teamsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -10,7 +10,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../state";
 import { addTeam, removeTeam } from "../state/fraudPicks";
-import { useGetStandingsQuery, useGetTeamsQuery } from "../state/teams";
+import { useGetPicksData } from "../hooks/useGetPicksData";
 
 export default function ({
   navigation,
@@ -22,20 +22,13 @@ export default function ({
   const selectedTeams = useSelector(
     (state: RootState) => state.fraudPicks.selectedTeams
   );
+  const currentWeek = useSelector((state: RootState) => state.ui.currentWeek);
 
-  const { data: detailedData, isLoading: detailedLoading } = useGetTeamsQuery();
-  const { data: teamsData, isLoading: teamsLoading } = useGetStandingsQuery();
+  const { data, loading } = useGetPicksData();
 
-  const teams = teamsData?.map((team) => ({
-    ...team,
-    ...detailedData?.find(
-      (search) =>
-        search.GlobalAwayTeamID === team.GlobalTeamID ||
-        search.GlobalHomeTeamID === team.GlobalTeamID
-    ),
-  }));
-
-  console.log("teamsData", teamsData);
+  const submitPicks = () => {
+    console.log({ week: 9, teams: selectedTeams, totalWager: wager });
+  };
 
   return (
     <Layout>
@@ -53,56 +46,59 @@ export default function ({
             be above zero.
           </MutedText>
         </View>
-        {(teamsLoading || detailedLoading) && <Text>Loading?</Text>}
+        {loading && <Text>Loading?</Text>}
         <View>
-          {teams
-            // ?.sort((a, b) => b.team.power - a.team.power)
-            ?.map((current, index) => {
-              const { Team, Touchdowns, Wins, Losses } = current;
-              const power = Touchdowns;
-              const team = {
-                name: Team.toLowerCase(),
-                wins: Wins,
-                losses: Losses,
-                power,
-              };
-
-              const againstName =
-                current.GlobalTeamID === current.GlobalHomeTeamID
-                  ? current.AwayTeam?.toLowerCase()
-                  : current.HomeTeam?.toLowerCase();
-
-              const againstTeam = teamsData?.find(
-                (search) => search.Team.toLowerCase() === againstName
-              );
-
-              const against = {
-                name: againstName || "",
-                wins: againstTeam?.Wins || 22,
-                losses: againstTeam?.Losses || 22,
-                power: 32,
-              };
-
-              return (
+          {data
+            // return {
+            // 	team,
+            // 	teamPower,
+            // 	gameDetails,
+            // 	opposingTeam,
+            // 	opposingTeamPower,
+            //   };
+            ?.map(
+              (
+                {
+                  team,
+                  teamPower,
+                  gameDetails,
+                  opposingTeam,
+                  opposingTeamPower,
+                  isHomeTeam,
+                },
+                index
+              ) => (
                 <TouchableOpacity
-                  key={Team.toLowerCase()}
+                  key={team.Team}
                   onPress={() => {
-                    selectedTeams.includes(Team.toLowerCase())
+                    selectedTeams.includes(team.Team)
                       ? dispatch(
-                          removeTeam({ name: Team.toLowerCase(), power })
+                          removeTeam({
+                            name: team.Team,
+                            power: teamPower,
+                          })
                         )
-                      : dispatch(addTeam({ name: Team.toLowerCase(), power }));
+                      : dispatch(
+                          addTeam({
+                            name: team.Team,
+                            power: teamPower,
+                          })
+                        );
                   }}
                 >
                   <FraudPick
                     team={team}
-                    against={against}
+                    teamPower={teamPower}
+                    opposingTeam={opposingTeam}
+                    opposingTeamPower={opposingTeamPower}
+                    isHomeTeam={isHomeTeam}
+                    gameDetails={gameDetails}
                     rank={index + 1}
-                    selected={selectedTeams.includes(Team.toLowerCase())}
+                    selected={selectedTeams.includes(team.Team)}
                   />
                 </TouchableOpacity>
-              );
-            })}
+              )
+            )}
         </View>
       </ScrollView>
       {selectedTeams.length > 0 && (
@@ -143,7 +139,8 @@ export default function ({
           ))}
           <Button
             title="Lock In"
-            disabled={wager < 0}
+            disabled={wager < 0 || selectedTeams.length !== 3}
+            onPress={submitPicks}
             buttonStyle={{
               backgroundColor: theme.colors?.error,
               marginLeft: 16,

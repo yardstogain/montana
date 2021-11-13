@@ -36,6 +36,7 @@ export const DarkTheme: Partial<FullTheme> = {
     greyOutline: sageDark.sage6,
     info: blueDark.blue11,
     success: tealDark.teal9,
+    mutedSuccess: sageDark.sage12,
     error: redDark.red9,
     warning: amberDark.amber9,
     card: sageDark.sage4,

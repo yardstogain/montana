@@ -5,6 +5,7 @@ type RecursivePartial<T> = { [P in keyof T]?: RecursivePartial<T[P]> };
 declare module "react-native-elements/dist/config/colors" {
   export interface Colors {
     mutedText: string;
+    mutedSuccess: string;
     text: string;
     info: string;
     card: string;

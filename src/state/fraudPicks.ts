@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TeamName } from "../types";
 
 export interface FraudPicksState {
   wager: number;
-  selectedTeams: string[];
+  selectedTeams: TeamName[];
 }
 
 const initialState: FraudPicksState = {
@@ -18,7 +19,7 @@ export const fraudPicksSlice = createSlice({
   reducers: {
     addTeam: (
       state,
-      action: PayloadAction<{ name: string; power: number }>
+      action: PayloadAction<{ name: TeamName; power: number }>
     ) => {
       if (state.selectedTeams.length < selectionCap) {
         state.selectedTeams.push(action.payload.name);
@@ -27,7 +28,7 @@ export const fraudPicksSlice = createSlice({
     },
     removeTeam: (
       state,
-      action: PayloadAction<{ name: string; power: number }>
+      action: PayloadAction<{ name: TeamName; power: number }>
     ) => {
       state.selectedTeams = state.selectedTeams.filter(
         (name) => name !== action.payload.name
