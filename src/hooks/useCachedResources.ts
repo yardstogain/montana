@@ -13,8 +13,6 @@ import { setCurrentWeek } from "../state/ui";
 
 function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const dispatch = useDispatch();
-  const { data, isLoading } = useGetCurrentWeekQuery();
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -40,13 +38,7 @@ function useCachedResources() {
     loadResourcesAndDataAsync();
   }, []);
 
-  React.useEffect(() => {
-    if (data) {
-      dispatch(setCurrentWeek(data));
-    }
-  }, [data, isLoading]);
-
-  return isLoadingComplete && isLoading;
+  return isLoadingComplete;
 }
 
 export { useCachedResources };
